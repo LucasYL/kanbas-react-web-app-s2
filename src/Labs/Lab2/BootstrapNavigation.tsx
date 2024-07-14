@@ -4,16 +4,16 @@ export default function BootstrapNavigation() {
       <h2>Tabs</h2>
       <ul className="nav nav-tabs">
         <li className="nav-item">
-          <a className="nav-link active" href="#">Active</a>
+          <button className="nav-link active">Active</button>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Link</a>
+          <button className="nav-link">Link</button>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Link</a>
+          <button className="nav-link">Link</button>
         </li>
         <li className="nav-item">
-          <a className="nav-link disabled" href="#">Disabled</a>
+          <button className="nav-link disabled">Disabled</button>
         </li>
       </ul>
       <div id="wd-css-navigating-with-cards">
@@ -23,7 +23,7 @@ export default function BootstrapNavigation() {
           <div className="card-body">
             <h5 className="card-title">Stacking Starship</h5>
             <p className="card-text">Stacking the most powerful rocket in history. Mars or bust!</p>
-            <a href="#" className="btn btn-primary">Boldly Go</a>
+            <button className="btn btn-primary">Boldly Go</button>
           </div>
         </div>
       </div>
