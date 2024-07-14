@@ -1,0 +1,77 @@
+#wd-assignments {
+    margin-top: 20px;
+  }
+  
+  #wd-search-assignment {
+    width: 100%;
+  }
+  
+  #wd-add-assignment-group, #wd-add-assignment {
+    margin-left: 10px;
+  }
+  
+  #wd-assignments-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .wd-assignment-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .wd-assignment-list-item a {
+    font-size: 18px;
+    font-weight: bold;
+    color: gray;
+  }
+  
+  .wd-assignment-list-item small {
+    font-size: 14px;
+    color: #6c757d;
+  }
+  
+  .wd-assignment-list-item .ms-auto {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+  
+  .lesson-control-buttons-container {
+    margin-left: 20px;
+  }
+  
+  #wd-assignments-editor .form-label {
+    font-weight: bold;
+  }
+  
+  #wd-assignments-editor .form-control {
+    margin-bottom: 15px;
+  }
+  
+  #wd-assignments-editor .form-check-input {
+    margin-right: 10px;
+  }
+  
+  #wd-assignments-editor .form-check-label {
+    margin-left: 5px;
+  }
+  
+  .border-left-green {
+    border-left: 5px solid green;
+  }
+  
+  .text-red {
+    color: red;
+  }
+
+  .checkmark-container {
+    margin-left: 250px;
+  }
+  
