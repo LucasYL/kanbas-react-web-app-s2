@@ -11,7 +11,7 @@ export default function Dashboard() {
                 className="wd-dashboard-course-link text-decoration-none text-dark"
                 href="#/Kanbas/Courses/1234/Home"
               >
-                <img src="/images/reactjs.jpg" width="100%" alt="Description of image 1"  />
+                <img src="/images/reactjs.jpg" width="100%" alt="Description of course 1"  />
                 <div className="card-body">
                   <h5 className="wd-dashboard-course-title card-title">
                     CS1234 React JS
@@ -28,7 +28,7 @@ export default function Dashboard() {
                 className="wd-dashboard-course-link text-decoration-none text-dark"
                 href="#/Kanbas/Courses/1234/Home"
               >
-                <img src="/images/reactjs.jpg" width="100%"  alt="Description of image 2" />
+                <img src="/images/reactjs.jpg" width="100%"  alt="Description of course 2" />
                 <div className="card-body">
                   <h5 className="wd-dashboard-course-title card-title">
                     CS1234 React JS
@@ -45,7 +45,7 @@ export default function Dashboard() {
                 className="wd-dashboard-course-link text-decoration-none text-dark"
                 href="#/Kanbas/Courses/1234/Home"
               >
-                <img src="/images/reactjs.jpg" width="100%" alt="Description of image 3"  />
+                <img src="/images/reactjs.jpg" width="100%" alt="Description of course 3"  />
                 <div className="card-body">
                   <h5 className="wd-dashboard-course-title card-title">
                     CS1234 React JS
@@ -62,7 +62,7 @@ export default function Dashboard() {
                 className="wd-dashboard-course-link text-decoration-none text-dark"
                 href="#/Kanbas/Courses/1234/Home"
               >
-                <img src="/images/reactjs.jpg" width="100%" alt="Description of image 4" />
+                <img src="/images/reactjs.jpg" width="100%" alt="Description of course 4" />
                 <div className="card-body">
                   <h5 className="wd-dashboard-course-title card-title">
                     CS1234 React JS
@@ -79,7 +79,7 @@ export default function Dashboard() {
                 className="wd-dashboard-course-link text-decoration-none text-dark"
                 href="#/Kanbas/Courses/1234/Home"
               >
-                <img src="/images/reactjs.jpg" width="100%" alt="Description of image 5" />
+                <img src="/images/reactjs.jpg" width="100%" alt="Description of course 5" />
                 <div className="card-body">
                   <h5 className="wd-dashboard-course-title card-title">
                     CS1234 React JS
@@ -96,7 +96,7 @@ export default function Dashboard() {
                 className="wd-dashboard-course-link text-decoration-none text-dark"
                 href="#/Kanbas/Courses/1234/Home"
               >
-                <img src="/images/reactjs.jpg" width="100%" alt="Description of image 6" />
+                <img src="/images/reactjs.jpg" width="100%" alt="Description of course 6" />
                 <div className="card-body">
                   <h5 className="wd-dashboard-course-title card-title">
                     CS1234 React JS
