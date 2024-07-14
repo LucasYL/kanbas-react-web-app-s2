@@ -2,7 +2,7 @@ import { MdDoNotDisturbAlt } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
 import { BiImport } from "react-icons/bi";
 import { LiaFileImportSolid } from "react-icons/lia";
-{/* Find more icons */}
+
 export default function CourseStatus() {
   return (
     <div id="wd-course-status" style={{ width: "300px" }}>
@@ -18,7 +18,7 @@ export default function CourseStatus() {
           <button className="btn btn-lg btn-success w-100">
             <FaCheckCircle className="me-2 fs-5" />
             Publish
-            </button>
+          </button>
         </div>
       </div>
       <br />
@@ -30,6 +30,6 @@ export default function CourseStatus() {
         <LiaFileImportSolid className="me-2 fs-5" />
         Import from Commons
       </button>
-      {/* Complete the rest of the buttons */}
     </div>
-);}
+  );
+}

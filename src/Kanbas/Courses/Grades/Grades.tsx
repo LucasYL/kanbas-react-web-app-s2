@@ -11,8 +11,8 @@ export default function Grades() {
             <FaDownload /> Export
           </button>
           <ul className="dropdown-menu">
-            <li><a className="dropdown-item" href="#">Export 1</a></li>
-            <li><a className="dropdown-item" href="#">Export 2</a></li>
+            <li><button className="dropdown-item">Export 1</button></li>
+            <li><button className="dropdown-item">Export 2</button></li>
           </ul>
         </div>
         <button className="btn btn-outline-secondary"><FaCog /></button>
