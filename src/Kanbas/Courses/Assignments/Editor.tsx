@@ -1,5 +1,5 @@
 
-import { useParams, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 import './index.css';
 import * as db from "../../Database";
 

@@ -1,5 +1,4 @@
 export default function TernaryOperator() {
-    let true1 = true, false1 = false;
    let loggedIn = true;
 
  return(
