@@ -75,3 +75,7 @@
     margin-left: 250px;
   }
   
+  .wd-float-right {
+    float: right;
+    height: 100px;
+ }

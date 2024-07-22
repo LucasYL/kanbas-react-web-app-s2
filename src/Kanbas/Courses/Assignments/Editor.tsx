@@ -1,11 +1,20 @@
+
+import { useParams, useLocation } from 'react-router';
 import './index.css';
+import * as db from "../../Database";
 
 export default function AssignmentEditor() {
+  const location = useLocation();
+  const pathParts = location.pathname.split('/');
+  const lastPathPart = pathParts[pathParts.length - 1];
+
+  const assignment = db.assignments.find((assignment) => assignment._id === lastPathPart);
+
   return (
-    <div id="wd-assignments-editor" className="container mt-3">
+    <div id="wd-assignments-editor" className="container mt-3">  
       <div className="row mb-3">
         <label htmlFor="wd-name" className="form-label">Assignment Name</label>
-        <input id="wd-name" value="A1 - ENV + HTML" className="form-control" />
+        <input id="wd-name" value={assignment?.title} className="form-control" readOnly />
       </div>
       <div className="row mb-3">
         <label htmlFor="wd-description" className="form-label">Description</label>

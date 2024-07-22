@@ -1,7 +1,25 @@
 import { FaFilter, FaUpload, FaDownload, FaCog } from 'react-icons/fa';
 import './index.css';
+import { useParams } from 'react-router';
+import * as db from "../../Database";
 
 export default function Grades() {
+  const { cid } = useParams();
+
+  // Filter enrollments to get enrollments for the current course
+  const currentCourseEnrollments = db.enrollments.filter(enrollment => enrollment.course === cid);
+
+  // Map over the enrollments to get the user objects
+  const studentsInCourse = currentCourseEnrollments.map(enrollment => {
+    return db.users.find(user => user._id === enrollment.user);
+  });
+
+  // Filter out undefined students
+  const enrolledStudents = studentsInCourse.filter(student => student !== undefined);
+
+  // Get assignments for the current course
+  const courseAssignments = db.assignments.filter(assignment => assignment.course === cid);
+
   return (
     <div id="wd-grades" className="container mt-3">
       <div className="d-flex justify-content-end align-items-center mb-3">
@@ -37,55 +55,23 @@ export default function Grades() {
           <thead>
             <tr>
               <th>Student Name</th>
-              <th>A1 SETUP</th>
-              <th>A2 HTML</th>
-              <th>A3 CSS</th>
-              <th>A4 BOOTSTRAP</th>
+              {courseAssignments.map(assignment => (
+                <th key={assignment._id}>{assignment.title}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Jane Adams</td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-              <td><input type="text" value="96.67%" className="form-control" /></td>
-              <td><input type="text" value="92.18%" className="form-control" /></td>
-              <td><input type="text" value="66.22%" className="form-control" /></td>
-            </tr>
-            <tr>
-              <td>Christina Allen</td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-            </tr>
-            <tr>
-              <td>Samreen Ansari</td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-            </tr>
-            <tr>
-              <td>Han Bao</td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-              <td><input type="text" value="88.03%" className="form-control" /></td>
-              <td><input type="text" value="98.99%" className="form-control" /></td>
-            </tr>
-            <tr>
-              <td>Mahi Sai Srinivas Bobbili</td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-              <td><input type="text" value="96.67%" className="form-control" /></td>
-              <td><input type="text" value="98.37%" className="form-control" /></td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-            </tr>
-            <tr>
-              <td>Siran Cao</td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-              <td><input type="text" value="100%" className="form-control" /></td>
-            </tr>
+            {enrolledStudents.map(student => student && (
+              <tr key={student._id}>
+                <td>{student.firstName} {student.lastName}</td>
+                {courseAssignments.map(assignment => {
+                  const grade = db.grades.find(grade => grade.student === student._id && grade.assignment === assignment._id);
+                  return (
+                    <td key={assignment._id}>{grade ? grade.grade : 'N/A'}</td>
+                  );
+                })}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
