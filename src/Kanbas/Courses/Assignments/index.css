@@ -72,10 +72,10 @@
   }
 
   .checkmark-container {
-    margin-left: 250px;
+    margin-left: 500px;
   }
   
-  .wd-float-right {
+  .lesson-control-buttons-container {
     float: right;
-    height: 100px;
- }
+    clear: both;
+  }

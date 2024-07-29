@@ -1,14 +1,17 @@
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import { BsGripVertical } from 'react-icons/bs';
 import { TfiWrite } from 'react-icons/tfi';
-import LessonControlButtons from './LessonControlButtons';
+import AssignmentControlButtons from './AssignmentControlButtons';
 import './index.css';
-import { useParams, Link } from 'react-router-dom';
-import * as db from "../../Database";
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteAssignment } from './reducer';
 
 export default function Assignments() {
   const { cid } = useParams();
-  const assignments = db.assignments.filter(assignment => assignment.course === cid);
+  const assignments = useSelector((state: any) => state.assignmentsReducer.assignments.filter((assignment: any) => assignment.course === cid));
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <div id="wd-assignments" className="container mt-3">
@@ -19,18 +22,18 @@ export default function Assignments() {
         </div>
         <div>
           <button id="wd-add-assignment-group" className="btn btn-outline-secondary me-2"><FaPlus /> Group</button>
-          <button id="wd-add-assignment" className="btn btn-danger"><FaPlus /> Assignment</button>
+          <button id="wd-add-assignment" className="btn btn-danger" onClick={() => navigate(`/Kanbas/Courses/${cid}/Assignments/new`)}><FaPlus /> Assignment</button>
         </div>
       </div>
       <div className="d-flex justify-content-between align-items-center mb-3 p-3 ps-2 bg-light">
-        <BsGripVertical />
-        <h3 id="wd-assignments-title">
+        <BsGripVertical  style={{ marginRight: '6px' }}/>
+        <h3 id="wd-assignments-title" className="d-flex align-items-center">
           ASSIGNMENTS
         </h3>
         <button className="btn btn-outline-secondary ms-auto">40% of Total</button>
       </div>
       <ul id="wd-assignment-list" className="list-group rounded-0">
-        {assignments.map((assignment) => (
+        {assignments.map((assignment: any) => (
           <li key={assignment._id} className="wd-assignment-list-item list-group-item p-0 mb-3 fs-5 border-gray bg-white">
             <div className="d-flex align-items-center p-3 ps-2 position-relative border-left-green">
               <BsGripVertical className="me-2" /><TfiWrite className="me-2 fs-3" />
@@ -40,12 +43,12 @@ export default function Assignments() {
                 </Link>
                 <br />
                 <small>
-                  <span className="text-red">Multiple Modules</span> | <strong>Not available until</strong> May 6 at 12:00am | <br />
-                  Due May 13 at 11:59pm | 100 pts
+                  <span className="text-red">Multiple Modules</span> | <strong>Not available until</strong> {assignment.availableFrom || "2024-05-06"} | <br />
+                  Due {assignment.dueDate || "2024-05-13"} at 11:59pm | {assignment.points || 100} pts
                 </small>
               </div>
-              <div className="ms-auto d-flex align-items-center lesson-control-buttons-container">
-                <LessonControlButtons />
+              <div className="d-flex align-items-center ms-auto">
+                <AssignmentControlButtons onDelete={() => dispatch(deleteAssignment(assignment._id))} />
               </div>
             </div>
           </li>
