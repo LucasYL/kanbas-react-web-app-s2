@@ -28,7 +28,7 @@ export default function Assignments() {
 
   useEffect(() => {
     fetchAssignments();
-  }, [cid]);
+  }, [fetchAssignments, cid]);
 
   return (
     <div id="wd-assignments" className="container mt-3">

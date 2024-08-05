@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import * as db from "../Database";
-import { useState } from "react";
 
 export default function Dashboard({
   courses,
@@ -63,7 +61,7 @@ export default function Dashboard({
                 className="text-decoration-none"
               >
                 <div className="card rounded-3 overflow-hidden">
-                  <img src="/images/reactjs.jpg" />
+                  <img src="/images/reactjs.jpg" alt="Course Logo"/>
                   <div className="card-body">
                     <span
                       className="wd-dashboard-course-link"

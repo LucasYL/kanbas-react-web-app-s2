@@ -48,7 +48,7 @@ export default function AssignmentEditor() {
 
   useEffect(() => {
     fetchAssignment();
-  }, [lastPathPart]);
+  }, [fetchAssignment, lastPathPart]);
 
   const handleSave = async () => {
     const newAssignment = {
