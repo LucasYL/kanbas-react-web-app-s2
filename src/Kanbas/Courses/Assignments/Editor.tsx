@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import './index.css';
-import * as db from "../../Database";
 import { useDispatch } from 'react-redux';
 import { addAssignment, updateAssignment } from './reducer';
+import * as client from './client';
 
 type Assignment = {
   _id: string;
@@ -23,35 +23,51 @@ export default function AssignmentEditor() {
   const pathParts = location.pathname.split('/');
   const lastPathPart = pathParts[pathParts.length - 1];
   const dispatch = useDispatch();
-  
+
   const isEditing = lastPathPart !== "new";
-  const assignment: Assignment = isEditing 
-    ? (db.assignments.find((assignment: Assignment) => assignment._id === lastPathPart) || {} as Assignment)
-    : {} as Assignment;
+  const [assignment, setAssignment] = useState<Assignment>({} as Assignment);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [points, setPoints] = useState(100);
+  const [dueDate, setDueDate] = useState("2024-05-13");
+  const [availableFrom, setAvailableFrom] = useState("2024-05-06");
+  const [availableUntil, setAvailableUntil] = useState("2024-05-20");
 
-  const [title, setTitle] = useState(assignment.title || "");
-  const [description, setDescription] = useState(assignment.description || "The assignment is available online. Submit a link to the landing page of your Web application running on Netlify. The landing page should include the following: Your full name and section Links to each of the lab assignments Link to the Kanbas application Links to all relevant source code repositories The Kanbas application should include a link to navigate back to the landing page.");
-  const [points, setPoints] = useState(assignment.points || 100);
-  const [dueDate, setDueDate] = useState(assignment.dueDate || "2024-05-13");
-  const [availableFrom, setAvailableFrom] = useState(assignment.availableFrom || "2024-05-06");
-  const [availableUntil, setAvailableUntil] = useState(assignment.availableUntil || "2024-05-20");
+  const fetchAssignment = async () => {
+    if (isEditing) {
+      const fetchedAssignment = await client.findAssignment(lastPathPart);
+      setAssignment(fetchedAssignment);
+      setTitle(fetchedAssignment.title || "");
+      setDescription(fetchedAssignment.description || "The assignment is available online. Submit a link to the landing page of your Web application running on Netlify. The landing page should include the following: Your full name and section Links to each of the lab assignments Link to the Kanbas application Links to all relevant source code repositories The Kanbas application should include a link to navigate back to the landing page.");
+      setPoints(fetchedAssignment.points || 100);
+      setDueDate(fetchedAssignment.dueDate || "2024-05-13");
+      setAvailableFrom(fetchedAssignment.availableFrom || "2024-05-06");
+      setAvailableUntil(fetchedAssignment.availableUntil || "2024-05-20");
+    }
+  };
 
-  const handleSave = () => {
+  useEffect(() => {
+    fetchAssignment();
+  }, [lastPathPart]);
+
+  const handleSave = async () => {
     const newAssignment = {
       _id: isEditing ? assignment._id : new Date().getTime().toString(),
       title, description, points, dueDate, availableFrom, availableUntil, course: cid
     };
-    
+
     if (isEditing) {
+      await client.updateAssignment(newAssignment);
       dispatch(updateAssignment(newAssignment));
     } else {
+      await client.createAssignment(cid as string, newAssignment);
       dispatch(addAssignment(newAssignment));
     }
     navigate(`/Kanbas/Courses/${cid}/Assignments`);
   };
 
   return (
-    <div id="wd-assignments-editor" className="container mt-3">  
+    <div id="wd-assignments-editor" className="container mt-3">
       <div className="row mb-3">
         <label htmlFor="wd-name" className="form-label">Assignment Name</label>
         <input id="wd-name" value={title} onChange={(e) => setTitle(e.target.value)} className="form-control" />

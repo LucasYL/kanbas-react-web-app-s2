@@ -1,3 +1,4 @@
+// src/Kanbas/Courses/Assignments/index.tsx
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import { BsGripVertical } from 'react-icons/bs';
 import { TfiWrite } from 'react-icons/tfi';
@@ -5,13 +6,29 @@ import AssignmentControlButtons from './AssignmentControlButtons';
 import './index.css';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteAssignment } from './reducer';
+import { useEffect } from 'react';
+import { setAssignments, deleteAssignment } from './reducer';
+import * as client from './client';
 
 export default function Assignments() {
   const { cid } = useParams();
   const assignments = useSelector((state: any) => state.assignmentsReducer.assignments.filter((assignment: any) => assignment.course === cid));
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const fetchAssignments = async () => {
+    const assignments = await client.findAssignmentsForCourse(cid as string);
+    dispatch(setAssignments(assignments));
+  };
+
+  const removeAssignment = async (assignmentId: string) => {
+    await client.deleteAssignment(assignmentId);
+    dispatch(deleteAssignment(assignmentId));
+  };
+
+  useEffect(() => {
+    fetchAssignments();
+  }, [cid]);
 
   return (
     <div id="wd-assignments" className="container mt-3">
@@ -26,7 +43,7 @@ export default function Assignments() {
         </div>
       </div>
       <div className="d-flex justify-content-between align-items-center mb-3 p-3 ps-2 bg-light">
-        <BsGripVertical  style={{ marginRight: '6px' }}/>
+        <BsGripVertical style={{ marginRight: '6px' }} />
         <h3 id="wd-assignments-title" className="d-flex align-items-center">
           ASSIGNMENTS
         </h3>
@@ -48,7 +65,7 @@ export default function Assignments() {
                 </small>
               </div>
               <div className="d-flex align-items-center ms-auto">
-                <AssignmentControlButtons onDelete={() => dispatch(deleteAssignment(assignment._id))} />
+                <AssignmentControlButtons onDelete={() => removeAssignment(assignment._id)} />
               </div>
             </div>
           </li>
