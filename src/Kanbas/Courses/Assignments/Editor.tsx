@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router';
 import './index.css';
 import { useDispatch } from 'react-redux';
@@ -33,7 +33,7 @@ export default function AssignmentEditor() {
   const [availableFrom, setAvailableFrom] = useState("2024-05-06");
   const [availableUntil, setAvailableUntil] = useState("2024-05-20");
 
-  const fetchAssignment = async () => {
+  const fetchAssignment = useCallback(async () => {
     if (isEditing) {
       const fetchedAssignment = await client.findAssignment(lastPathPart);
       setAssignment(fetchedAssignment);
@@ -44,7 +44,7 @@ export default function AssignmentEditor() {
       setAvailableFrom(fetchedAssignment.availableFrom || "2024-05-06");
       setAvailableUntil(fetchedAssignment.availableUntil || "2024-05-20");
     }
-  };
+  }, [isEditing, lastPathPart]);
 
   useEffect(() => {
     fetchAssignment();

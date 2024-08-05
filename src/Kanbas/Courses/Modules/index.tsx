@@ -1,7 +1,7 @@
 import ModulesControls from "./ModulesControls";
 import {BsGripVertical} from "react-icons/bs";
 import { useParams } from "react-router";
-import { useState, useEffect} from "react";
+import { useState, useEffect, useCallback} from "react";
 import ModuleControlButtons from "./LessonControlButtons";
 import { setModules, addModule, editModule, updateModule, deleteModule }
   from "./reducer";
@@ -13,10 +13,11 @@ export default function Modules() {
   const [moduleName, setModuleName] = useState("");
   const { modules } = useSelector((state: any) => state.modulesReducer);
   const dispatch = useDispatch();
-  const fetchModules = async () => {
+  const fetchModules = useCallback(async () => {
     const modules = await client.findModulesForCourse(cid as string);
     dispatch(setModules(modules));
-  };
+  }, [cid, dispatch]);
+  
   useEffect(() => {
     fetchModules();
   }, [fetchModules, cid]);

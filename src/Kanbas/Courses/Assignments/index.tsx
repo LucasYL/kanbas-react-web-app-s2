@@ -6,7 +6,7 @@ import AssignmentControlButtons from './AssignmentControlButtons';
 import './index.css';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { setAssignments, deleteAssignment } from './reducer';
 import * as client from './client';
 
@@ -16,10 +16,10 @@ export default function Assignments() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const fetchAssignments = async () => {
+  const fetchAssignments = useCallback(async () => {
     const assignments = await client.findAssignmentsForCourse(cid as string);
     dispatch(setAssignments(assignments));
-  };
+  }, [cid, dispatch]);
 
   const removeAssignment = async (assignmentId: string) => {
     await client.deleteAssignment(assignmentId);
