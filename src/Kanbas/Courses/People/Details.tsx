@@ -10,9 +10,21 @@ export default function PeopleDetails({ fetchUsers }:{ fetchUsers: () => void; }
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [editing, setEditing] = useState(false);
+  const { uid, cid } = useParams(); 
+  const [user, setUser] = useState<any>({});
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!uid) return;
+      const user = await client.findUserById(uid);
+      setUser(user);
+    };
+    if (uid) fetchUser();
+  }, [uid]);
+
   const saveUser = async () => {
-  const [firstName, lastName] = name.split(" ");
-  const updatedUser = { ...user, firstName, lastName };
+    const [firstName, lastName] = name.split(" ");
+    const updatedUser = { ...user, firstName, lastName };
     await client.updateUser(updatedUser);
     setUser(updatedUser);
     setEditing(false);
@@ -26,16 +38,6 @@ export default function PeopleDetails({ fetchUsers }:{ fetchUsers: () => void; }
     navigate(`/Kanbas/Courses/${cid}/People`);
   };
 
-  const { uid, cid } = useParams();
-  const [user, setUser] = useState<any>({});
-  const fetchUser = async () => {
-    if (!uid) return;
-    const user = await client.findUserById(uid);
-    setUser(user);
-  };
-  useEffect(() => {
-    if (uid) fetchUser();
-  }, [uid, fetchUser]);
   if (!uid) return null;
   return (
     <div className="wd-people-details position-fixed top-0 end-0 bottom-0 bg-white p-4 shadow w-25">
