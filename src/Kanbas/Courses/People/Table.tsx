@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import * as client from "./client";
 import PeopleDetails from "./Details";
 import { useParams } from "react-router";
@@ -61,6 +61,7 @@ export default function PeopleTable() {
         <option value="">All Roles</option>        <option value="STUDENT">Students</option>
         <option value="TA">Assistants</option>     <option value="FACULTY">Faculty</option>
       </select>
+      <h2 style={{ display: 'none' }}>Current Search: {name ? name : "None"}</h2>
       <table className="table table-striped">
         <thead>
           <tr>
