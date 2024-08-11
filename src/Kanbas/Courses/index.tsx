@@ -6,6 +6,7 @@ import { FaAlignJustify } from "react-icons/fa";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
 import Grades from "./Grades/Grades";
+import PeopleTable from "./People/Table";
 
 export default function Courses({ courses }: { courses: any[]; }) {
   const { cid } = useParams();
@@ -34,6 +35,8 @@ export default function Courses({ courses }: { courses: any[]; }) {
                 <Route path="Assignments/:id" element={<AssignmentEditor />} />
                 <Route path="Quizzes" element={<h1>Quizzes</h1>} />
                 <Route path="Grades" element={<Grades />} />
+                <Route path="People" element={<PeopleTable />} />
+                <Route path="People/:uid" element={<PeopleTable />} />
                 <Route path="/" element={<Navigate to="Home" />} />
               </Routes>
             </td>
