@@ -11,6 +11,10 @@ import { Provider } from "react-redux";
 import Account from "./Account";
 import ProtectedRoute from "./ProtectedRoute";
 
+function generateRandomId() {
+  return Math.floor(1000 + Math.random() * 9000).toString();
+}
+
 export default function Kanbas() {
   const fetchCourses = async () => {
     const courses = await client.fetchAllCourses();
@@ -22,13 +26,17 @@ export default function Kanbas() {
 
   const [courses, setCourses] = useState<any[]>([]);
   const [course, setCourse] = useState<any>({
-    _id: "1234", name: "New Course", number: "New Number",
+    _id: generateRandomId(), name: "New Course", number: "New Number",
     startDate: "2023-09-10", endDate: "2023-12-15", description: "New Description",
   });
   const addNewCourse = async () => {
-    const newCourse = await client.createCourse(course);
-    setCourses([ ...courses, newCourse ]);
-  };
+    const newCourse = {
+        ...course,
+        _id: generateRandomId(),  // Generate a new random ID
+    };
+    const savedCourse = await client.createCourse(newCourse);
+    setCourses([ ...courses, savedCourse ]);
+};
   const deleteCourse = async (courseId: string) => {
     await client.deleteCourse(courseId);
     setCourses(courses.filter(
