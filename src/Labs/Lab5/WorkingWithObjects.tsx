@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { courses } from "../../Kanbas/Database";
 const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
 export default function WorkingWithObjects() {
   const [assignment, setAssignment] = useState({
